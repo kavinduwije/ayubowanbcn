@@ -1,0 +1,19 @@
+# Site.eu applies rewrite rules; PHP handles HTML headers and 404s.
+RewriteEngine On
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^ayubowanbarcelona\.es$ [NC]
+RewriteRule ^ https://ayubowanbarcelona.es%{REQUEST_URI} [R=301,L,NE]
+
+# Deny private files and backups using supported rewrite rules.
+RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+RewriteRule \.(sqlite(?:-wal|-shm)?|db|sql|env|log|zip|bak|map)$ - [F,L,NC]
+RewriteRule ^page-routes\.json$ - [F,L]
+
+RewriteRule ^api/(inquiries|studio/(inquiries|session|quotes)|payments/(quote|checkout|webhook))/?$ api/router.php [L]
+
+# Keep assets static; serve generated pages through PHP for security headers.
+RewriteRule ^page\.php$ - [L]
+RewriteCond %{REQUEST_URI} !^/(?:api|_next|images|fonts|\.well-known)(?:/|$) [NC]
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} \.html$ [NC]
+RewriteRule ^ page.php [L]

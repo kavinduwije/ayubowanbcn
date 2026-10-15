@@ -1,0 +1,12 @@
+"use client";
+import { ArrowUpRight, CalendarDays, Compass, Users } from "lucide-react";
+import { type Locale, localPath, textFor } from "@/lib/site-config";
+
+export function QuickPlanner({ locale }: { locale: Locale }) {
+  return <form className="quick-planner" action={localPath("/plan-your-trip", locale)}><div className="quick-planner-heading"><span>{textFor(locale, "Your trip, your way.", "Tu viaje, a tu manera.")}<small>{textFor(locale, "Let’s find your kind of day.", "Encuentra tu día ideal.")}</small></span></div>
+    <label><span><Compass size={15} />{textFor(locale, "WHAT’S YOUR MOOD?", "¿QUÉ TE APETECE?")}</span><select name="experience" defaultValue="barcelona-gaudi"><option value="barcelona-gaudi">{textFor(locale, "Discover Barcelona", "Descubrir Barcelona")}</option><option value="montserrat">{textFor(locale, "Escape to Montserrat", "Escapar a Montserrat")}</option><option value="costa-brava">{textFor(locale, "A day by the sea", "Un día junto al mar")}</option><option value="camp-nou-barca">{textFor(locale, "Camp Nou & Barça", "Camp Nou y Barça")}</option><option value="gothic-quarter">{textFor(locale, "Explore the Gothic Quarter", "Descubrir el Barrio Gótico")}</option><option value="barcelona-nightlife">{textFor(locale, "Barcelona after dark", "Barcelona de noche")}</option><option value="food-and-old-town">{textFor(locale, "Food & old town", "Sabores y casco antiguo")}</option><option value="airport-welcome">{textFor(locale, "An airport welcome", "Bienvenida en el aeropuerto")}</option><option value="shopping-and-concierge">{textFor(locale, "Something personal", "Algo personal")}</option></select></label>
+    <label><span><CalendarDays size={15} />{textFor(locale, "WHEN ARE YOU VISITING?", "¿CUÁNDO NOS VISITAS?")}</span><input type="date" name="date" aria-label={textFor(locale, "Travel date", "Fecha del viaje")} /></label>
+    <label className="quick-guests"><span><Users size={15} />{textFor(locale, "YOUR PEOPLE", "TU GRUPO")}</span><select name="guests" defaultValue="2">{[1,2,3,4,5,6,7].map((count) => <option key={count} value={count}>{count} {textFor(locale, count === 1 ? "traveler" : "travelers", count === 1 ? "viajero" : "viajeros")}</option>)}<option value="8">{textFor(locale, "8+ travelers", "8+ viajeros")}</option></select></label>
+    <button type="submit" className="button button-dark">{textFor(locale, "Find my experience", "Encuentra mi experiencia")}<ArrowUpRight size={18} /></button>
+  </form>;
+}

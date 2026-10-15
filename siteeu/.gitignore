@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+deployment/
+qa-deployment/
+private-deployment/
+.env*
+!.env.example
+*.tsbuildinfo
+*.zip
